@@ -28,10 +28,8 @@ pip install -r requirements.txt
 
  4. Configure o banco de dados MySQL:
 
-
 - Crie um banco de dados no MySQL com o nome banco_de_dados.
 - Atualize o arquivo settings.py com as credenciais do banco de dados.
-
 
  5. Aplique as migrações do banco de dados:
   ```
