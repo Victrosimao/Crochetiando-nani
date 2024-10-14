@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<h3>{{produto.nome}}</h3>
+
+{% if tem_estoque %}
+
+<form method="POST" action="{% url 'adicionar_carrinho' produto.id %}">
+    {% csrf_token %}
+    <img src="{{produto.imagem.url}}">
+    <p>Produtos: {{produto.nome}}</p>
+    <p>Preço : {{produto.preco}}</p>
+
+
+    <button type="submit">Adicionar ao carrinho</button>
+</form>
+
+{% else %}
+
+<p>Produto Indisponível</p>
+
+{% endif %}
+
+{% endblock %}
