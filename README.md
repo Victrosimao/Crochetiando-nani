@@ -11,7 +11,7 @@ Este é um projeto de e-commerce desenvolvido para a venda de produtos de croch�
 
 ## Instalação
 
- 1. Clone o repositório para a sua máquina local:
+ 1. Clone o repositório para a sua máquina local (tenha o Git instalado):
    ```bash
      git init
      git config --local user.name "Seu nome"
