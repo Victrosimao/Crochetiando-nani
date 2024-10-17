@@ -11,9 +11,12 @@ Este é um projeto de e-commerce desenvolvido para a venda de produtos de croch�
 
 ## Instalação
 
- 1. Clone o repositório para a sua máquina local:
+ 1. Clone o repositório para a sua máquina local (tenha o Git já instalado):
    ```bash
-     git clone https://github.com/Victrosimao/Crochetiando-nani.git
+     git init
+     git config --local user.name "Seu nome"
+     git config --local user.email "Seu email"
+     git clone --branch main https://github.com/Victrosimao/Crochetiando-nani.git
   ```
 
  2. Crie e ative um ambiente virtual (opcional, mas recomendado):
