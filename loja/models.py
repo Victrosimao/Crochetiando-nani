@@ -39,8 +39,6 @@ class Produto(models.Model):
     
 class ItemEstoque(models.Model):
     produto = models.ForeignKey(Produto, null=True, blank=True, on_delete=models.SET_NULL)
-    cor = models.CharField(max_length=200, null=True, blank=True)
-    tamanho = models.CharField(max_length=200, null=True, blank=True)
     quantidade = models.IntegerField(default=0)
 
     def __str__(self):
@@ -85,7 +83,7 @@ class ItensPedido(models.Model):
     pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self) -> str:
-        return f"id_pedido: {self.id} / Produto: {self.item_estoque.produto}"
+        return f"id_pedido: {self.pedido.id} / Produto: {self.item_estoque.produto.nome}"
 
     @property
     def preco_total(self):

@@ -10,7 +10,7 @@
 <form method="POST" action="{% url 'adicionar_carrinho' produto.id %}">
     {% csrf_token %}
     <img src="{{produto.imagem.url}}">
-    <p>Produtos: {{produto.nome}}</p>
+    <p>Produto: {{produto.nome}}</p>
     <p>Preço : {{produto.preco}}</p>
 
 
