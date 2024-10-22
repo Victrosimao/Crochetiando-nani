@@ -44,6 +44,16 @@ python manage.py migrate
 python manage.py runserver
   ```
 
+7. *Para subir seu projeto para o github
+  ```
+git init 
+git add . 
+git commit -m "primeiro commit"
+git branch -M main 
+git remote add origin (junto com o link do repositório) 
+git push -u origin main 
+  ```
+
 ## Funcionalidades
 - Catálogo de produtos de crochê com diferentes categorias e tipos.
 - Sistema de carrinho de compras e checkout.
