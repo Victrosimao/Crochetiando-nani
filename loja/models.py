@@ -54,7 +54,7 @@ class Endereco(models.Model):
     cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return f"Cliente: {self.cliente.email} / Rua: {self.rua} / Numero: {self.numero} / CEP: {self.cep} / Cidade: {self.cidade} / Estado: {self.estado}"
+        return f"Cliente: {self.cliente} / Rua: {self.rua} / Numero: {self.numero} / CEP: {self.cep} / Cidade: {self.cidade} / Estado: {self.estado}"
 
 class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.SET_NULL)
@@ -64,7 +64,7 @@ class Pedido(models.Model):
     data_finalizacao = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"Cliente: {self.cliente.email} / id_pedido: {self.id} / Finalizado {self.finalizado}"
+        return f"Cliente: {self.cliente} / id_pedido: {self.id} / Finalizado {self.finalizado}"
 
     @property
     def quantidade_total(self):
@@ -76,7 +76,11 @@ class Pedido(models.Model):
         itens_pedido = ItensPedido.objects.filter(pedido=self.id)
         preco = sum([item.preco_total for item in itens_pedido])
         return preco
-        
+    @property
+    def itens(self):
+        itens_pedido = ItensPedido.objects.filter(pedido_id=self.id)
+        return itens_pedido
+
 class ItensPedido(models.Model):
     item_estoque = models.ForeignKey(ItemEstoque, null=True, blank=True, on_delete=models.SET_NULL)
     quantidade = models.IntegerField(default=0)

@@ -43,6 +43,7 @@ python manage.py migrate
   ```
 python manage.py runserver
   ```
+<<<<<<< HEAD
   
 7. *Para subir seu projeto para o github
   ```
@@ -54,6 +55,8 @@ git remote add origin (junto com o link do repositório)
 git push -u origin main 
   ```
 
+=======
+>>>>>>> d7b536a8c585699308503e4540dab285311d40a5
 ## Funcionalidades
 - Catálogo de produtos de crochê com diferentes categorias e tipos.
 - Sistema de carrinho de compras e checkout.

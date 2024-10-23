@@ -16,6 +16,7 @@ urlpatterns = [
     
     #urls para usuario
     path('minhaconta/', minha_conta, name="minha_conta"),
+    path('meus_pedidos/', meus_pedidos, name="meus_pedidos"),
     path('login/', fazer_login, name="fazer_login"),
     path('criar_conta/', criar_conta, name="criar_conta"),
     path('logout/', fazer_logout, name="fazer_logout"),
