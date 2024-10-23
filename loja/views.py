@@ -142,6 +142,7 @@ def adicionar_endereco(request):
 
 @login_required
 def minha_conta(request):
+<<<<<<< HEAD
     erro = None
     alterado = False
     if request.method == "POST":
@@ -184,6 +185,9 @@ def minha_conta(request):
             erro = "formulario_invalido"
     context = {"erro": erro, "alterado": alterado}
     return render(request, 'usuario/minha_conta.html', context)
+=======
+    return render(request, 'usuario/minha_conta.html')
+>>>>>>> 3f6dff3a9e38f9d0db786b929a2bbc198e947cfc
 
 @login_required
 def meus_pedidos(request):

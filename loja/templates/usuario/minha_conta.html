@@ -7,6 +7,7 @@
 <a href="{% url 'meus_pedidos' %}">Meus Pedidos</a>
 
 <a href="{% url 'fazer_logout' %}">Sair da conta</a>
+<<<<<<< HEAD
 
 {% if alterado %}
 <p>Alterações salvas com sucesso</p>
@@ -31,6 +32,10 @@
 <h3>Meus Dados</h3>
 <form method="POST" action="{% url 'minha_conta' %}">
     {% csrf_token %}
+=======
+<h3>Meus Dados</h3>
+<form method="POST" action="{% url 'minha_conta' %}">
+>>>>>>> 3f6dff3a9e38f9d0db786b929a2bbc198e947cfc
     <input type="text" name="nome" placeholder="Nome Completo" 
     {% if request.user.cliente.nome %}
         value="{{ request.user.cliente.nome }}"
@@ -43,7 +48,10 @@
 <hr>
 <h3>Alterar Senha</h3>
 <form method="POST" action="{% url 'minha_conta' %}">
+<<<<<<< HEAD
     {% csrf_token %}
+=======
+>>>>>>> 3f6dff3a9e38f9d0db786b929a2bbc198e947cfc
     <input type="password" name="senha_atual" placeholder="Senha Atual">
     <input type="password" name="nova_senha" placeholder="Nova Senha">
     <input type="password" name="nova_senha_confirmacao" placeholder="Confirmação Nova Senha">
