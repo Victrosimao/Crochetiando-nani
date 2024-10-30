@@ -7,39 +7,59 @@
 
 <a href="{% url 'carrinho' %}">Voltar para carrinho</a>
 
+<p></p>
+
+{% if not request.user.is_authenticated %}
+<br>
+Para finalizar a compra, é necessário fazer o login
+<br>
+<a href="{% url 'fazer_login' %}">Faça seu login aqui</a>
+
+{% else %}
 
 <h4>Número do Pedido: {{ pedido.id }}</h4>
 <p>Preço Total do pedido: R${{ pedido.preco_total }}</p>
 <p>Total Produtos: {{ pedido.quantidade_total }}</p>
 
-<form method="POST" action="">
-    {% csrf_token %}
-    <h4>Selecione um endereço de entrega:</h4>
-    <a href="{% url 'adicionar_endereco' %}">Adicionar endereço de entrega</a>
-    <p></p>
-    <br>
-    {% for endereco in enderecos %}
-    <input type="radio" name="endereco" value="{{endereco.id}}">
-    <label for="{{endereco.id}}">
-        Rua {{endereco.rua}} - 
-        nº {{endereco.numero}} -
-        Complemento: {{endereco.complemento}} - 
-        CEP: {{endereco.cep}} - 
-        {{endereco.cidade}} - 
-        {{endereco.estado}}</label>
-    <br>
-    {% endfor %}
-    <p></p>
-    {% if not request.user.is_authenticated %}
-    <hr>
-    <h4>Preencha seu email para finalizar o pedido</h4>
-    <input type="email" nome="email" placeholder="email">
-    {% endif %}
-    <hr>
-    <input type="hidden" value="{{pedido.preco_total}}" name="Total: ">
-    <button type="submit">Finalizar Pedido - R${{pedido.preco_total}}</button>
+    {% if erro %}
 
+        {% if erro == "preco" %}
+            <p>Preço dos produtos errados, tente novamente ou volte para o carrinho</p>
+        {% endif %}
+
+        {% if erro == "endereco" %}
+            <p>Selecione um endereço de entrega para continuar</p>
+        {% endif %}
+
+        {% if erro == "email" %}
+            <p>Preencha um e-mail para podermos confirmar sua compra</p>
+        {% endif %}
+        
+    {% endif %}
+
+    <form method="POST" action="{% url 'finalizar_pedido' pedido.id %}">
+        {% csrf_token %}
+        <h4>Selecione um endereço de entrega:</h4>
+        <a href="{% url 'adicionar_endereco' %}">Adicionar endereço de entrega</a>
+        <br>
+        {% for endereco in enderecos %}
+        <input type="radio" name="endereco" value="{{endereco.id}}">
+        <label for="{{endereco.id}}">
+            Rua: {{endereco.rua}} - 
+            N°: {{endereco.numero}} -
+            Complemento: {{endereco.complemento}} - 
+            CEP: {{endereco.cep}} - 
+            {{endereco.cidade}} - 
+            {{endereco.estado}}</label>
+        <br>
+        {% endfor %}
+    
+        <hr>
+        <input type="hidden" value="{{pedido.preco_total}}" name="total">
+        <button type="submit">Finalizar Pedido - R${{pedido.preco_total}}</button>
 
 </form>
+
+{% endif %}
 
 {% endblock %}

@@ -17,10 +17,10 @@
     <p>Endereço: {{pedido.endereco.cep}}, {{pedido.endereco.cidade}} - {{pedido.endereco.estado}}</p>
 
     {% for item in pedido.itens %}
-    <img src="{{ item.item_estoque.produto.imagem.url }}" width="75" height="50">
-    <p>Produto: {{ item.item_estoque.produto.nome }}</p>
-    <p>Quantidade: {{ item.quantidade }}</p>
-    <p>Preço: {{ item.preco_total }}</p>
+        <img src="{{ item.item_estoque.produto.imagem.url }}" width="60" height="40">
+        <p>Produto: {{ item.item_estoque.produto.nome }}</p>
+        <p>Quantidade: {{ item.quantidade }}</p>
+        <p>Preço: {{ item.preco_total }}</p>
     {% endfor %}
 </div>
 <hr>

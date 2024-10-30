@@ -37,6 +37,11 @@ class Produto(models.Model):
     def __str__(self):
         return f"Nome: {self.nome} / Categoria: {self.categoria} / Tipo: {self.tipo} / Preço: {self.preco}"
     
+    def total_vendas(self):
+        itens = ItensPedido.objects.filter(pedido__finalizado=True, item_estoque__produto=self.id)
+        total = sum([item.quantidade for item in itens])
+        return total
+
 class ItemEstoque(models.Model):
     produto = models.ForeignKey(Produto, null=True, blank=True, on_delete=models.SET_NULL)
     quantidade = models.IntegerField(default=0)
@@ -71,11 +76,13 @@ class Pedido(models.Model):
         itens_pedido = ItensPedido.objects.filter(pedido=self.id)
         quantidade = sum([item.quantidade for item in itens_pedido])
         return quantidade
+    
     @property
     def preco_total(self):
         itens_pedido = ItensPedido.objects.filter(pedido=self.id)
         preco = sum([item.preco_total for item in itens_pedido])
         return preco
+    
     @property
     def itens(self):
         itens_pedido = ItensPedido.objects.filter(pedido_id=self.id)
@@ -87,7 +94,7 @@ class ItensPedido(models.Model):
     pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self) -> str:
-        return f"id_pedido: {self.pedido.id} / Produto: {self.item_estoque.produto.nome}"
+        return f"Id pedido: {self.pedido.id} / Produto: {self.item_estoque.produto.nome}"
 
     @property
     def preco_total(self):
@@ -101,4 +108,8 @@ class Banner(models.Model):
     def __str__(self):
         return f"{self.link_destino} - Ativo: {self.ativo}"
 
+class Pagamento(models.Model):
+    id_pagamento = models.CharField(max_length=400)
+    pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
+    aprovado = models.BooleanField(default=False)
 

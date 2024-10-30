@@ -6,17 +6,19 @@
 
 <h3>Loja</h3>
 
-preco
-categoria
-tipo
 
 <div style="display: flex;">
     <form method="POST" action="">
         {% csrf_token %}
         <p>Preço</p>
-        <input type="number" name="preco_minimo" value={{ minimo }}>
-        <input type="number" name="preco_maximo" value={{ maximo }}>
-    
+        <input type="number" name="preco_minimo" value=
+        {% localize off %}
+        {{ minimo }}
+        {% endlocalize %}>
+        <input type="number" name="preco_maximo" value={% localize off %}
+        {{ maximo }}
+        {% endlocalize %}>
+        
         <p>Categoria</p>
 
         {% for categoria in categorias %}
@@ -42,7 +44,7 @@ tipo
         <a href="{% url 'ver_produto' produto.id %}">
         <img src="{{produto.imagem.url}}">
         </a>
-        <p>Produtos: {{produto.nome}}</p>
+        <p>Produto: {{produto.nome}}</p>
         <p>Preço : {{produto.preco}}</p>
 
         {% endfor %}
