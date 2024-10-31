@@ -1,0 +1,65 @@
+.rodape{
+    background-color: #d68e2f;
+    color: white;
+    height: auto;
+    width: 100%;
+    font-size: 16px;
+    font-family: helvetica;
+}
+.rodape a{
+    text-decoration: none;
+    color: white;
+}
+.rodape p{
+    margin-bottom: 5px;
+}
+.rodape-div{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width:100%;
+    margin: auto;
+    align-items: stretch;
+    padding: 60px 10px 60px 10px;
+}
+.rodape-div-1, .rodape-div-2{
+    display: flex;
+    width: calc(70% / 3 - 10px);
+    padding: 50px;
+}
+.rodape span{
+    font-size: 24px;
+    color: white;
+}
+.logo-imagem {
+    width: 150px; /* ou o tamanho desejado */
+    height: auto; /* mantém a proporção da imagem */
+    border-radius: 50%;
+}
+.footer-imagem {
+    width: 30px; /* ou o tamanho desejado */
+    height: auto; /* mantém a proporção da imagem */
+    margin-right: 8px;
+    filter: invert(1) brightness(2);
+}
+.footer-banner {
+    width: 630px; /* ou o tamanho desejado */
+    height:auto; /* mantém a proporção da imagem */
+}
+.footer-link {
+    display: flex;
+    align-items: center; /* Alinha o texto e a imagem verticalmente */
+    text-decoration: none; /* Remove sublinhado */
+    color: inherit; /* Mantém a cor do texto padrão */
+}
+
+/*mobile*/
+@media (max-width: 768px) {
+    .rodape-div-1, .rodape-div-2, .rodape-div-3{
+        width: calc(50% - 20px);
+        padding: 30px;
+    }
+    .rodape-div{
+        padding: 40px 0px 40px 0px;
+    }
+}
