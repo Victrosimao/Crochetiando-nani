@@ -9,6 +9,7 @@
 <a href="{% url 'fazer_logout' %}">Sair da conta</a>
 <h3>Meus Dados</h3>
 <form method="POST" action="{% url 'minha_conta' %}">
+    {% csrf_token %}
     <input type="text" name="nome" placeholder="Nome Completo" 
     {% if request.user.cliente.nome %}
         value="{{ request.user.cliente.nome }}"
@@ -21,6 +22,7 @@
 <hr>
 <h3>Alterar Senha</h3>
 <form method="POST" action="{% url 'minha_conta' %}">
+    {% csrf_token %}
     <input type="password" name="senha_atual" placeholder="Senha Atual">
     <input type="password" name="nova_senha" placeholder="Nova Senha">
     <input type="password" name="nova_senha_confirmacao" placeholder="Confirmação Nova Senha">

@@ -24,6 +24,8 @@ urlpatterns = [
     path('criar_conta/', criar_conta, name="criar_conta"),
     path('logout/', fazer_logout, name="fazer_logout"),
 
+    path('gerenciarloja/', gerenciar_loja, name="gerenciar_loja"),
+
     #urls-views padrão do django para mudança de senha
     path("password_change/", views.PasswordChangeView.as_view(), name="password_change"),
     path("password_change/done/", views.PasswordChangeDoneView.as_view(), name="password_change_done"),

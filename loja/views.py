@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import *
 import uuid
-from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos
+from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos, enviar_email_compra
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
@@ -181,6 +181,7 @@ def finalizar_pagamento(request):
         pedido.data_finalizacao = datetime.now()
         pedido.save()
         pagamento.save()
+        enviar_email_compra(pedido)
         return redirect("meus_pedidos")    
     else:
         return redirect("checkout")
@@ -329,3 +330,10 @@ def criar_conta(request):
 def fazer_logout(request):
     logout(request)
     return redirect('fazer_login')
+
+@login_required
+def gerenciar_loja(request):
+    if request.user.groups.filter(name="equipe").exists():
+        return render(request, "interno/gerenciar_loja.html")
+    else:
+        redirect('loja')
