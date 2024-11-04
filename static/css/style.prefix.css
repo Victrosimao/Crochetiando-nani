@@ -38,7 +38,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.2;
   color: #000;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 img {
@@ -316,17 +316,20 @@ img {
   color: #626262;
 }
 .cabecalho__link--tipo:hover {
+  display: flex;
   border-bottom: none;
   text-decoration: underline;
   text-decoration-thickness: 1px;
 }
 .cabecalho__link:hover {
+  display: flex;
   border-bottom-color: currentColor;
 }
 .cabecalho__item-lista {
   padding: 3.12rem 0;
 }
 .cabecalho__item-lista:hover {
+  display: flex;
   border-bottom-color: currentColor;
 }
 .cabecalho__item-lista:hover .cabecalho__expansao-tipos {
@@ -334,11 +337,13 @@ img {
 }
 @media (max-width: 59.375em) {
   .cabecalho__item-lista {
+    display: flex;
     border-top: 1px solid #d8d9da;
     padding: 2rem 0 0 0;
     cursor: pointer;
   }
   .cabecalho__item-lista--aberto .cabecalho__expansao-tipos {
+    display: flex;
     max-height: 100rem;
     border-top: 1px solid #d8d9da;
     transition: max-height 0.3s ease-in-out;
@@ -358,6 +363,7 @@ img {
   top: 100%;
   padding: 3.12rem 4.88rem;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+  transition: max-height 0.3s ease-in-out;
 }
 @media (max-width: 59.375em) {
   .cabecalho__expansao-tipos {
@@ -1173,7 +1179,7 @@ img {
   gap: 2.5rem;
   padding: 0 2rem;
   min-width: 31rem;
-  width: 31rem;
+  width: 1rem;
   max-height: 60rem;
   overflow: auto;
 }

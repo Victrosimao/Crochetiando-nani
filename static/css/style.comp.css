@@ -38,7 +38,7 @@ body {
   font-size: 1.6rem;
   line-height: 1.2;
   color: #000;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 img {
@@ -95,7 +95,7 @@ img {
 
 .cabecalho {
   position: sticky;
-  top: 0;
+  top: 10;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -172,7 +172,7 @@ img {
   width: 15rem;
   margin-bottom: 2px;
 }
-@media (max-width: 59.375em) {
+@media (max-width: 150.375em) {
   .cabecalho__logo {
     margin: 3.05rem 0;
   }
@@ -324,12 +324,14 @@ img {
   border-bottom-color: currentColor;
 }
 .cabecalho__item-lista {
+  position: relative;
   padding: 3.12rem 0;
 }
 .cabecalho__item-lista:hover {
   border-bottom-color: currentColor;
 }
-.cabecalho__item-lista:hover .cabecalho__expansao-tipos {
+.cabecalho__item-lista:hover .cabecalho__expansao-tipos,
+.cabecalho__expansao-tipos:hover {
   display: flex;
 }
 @media (max-width: 59.375em) {
@@ -339,23 +341,18 @@ img {
     cursor: pointer;
   }
   .cabecalho__item-lista--aberto .cabecalho__expansao-tipos {
-    max-height: 100rem;
+    max-height: 1000rem;
     border-top: 1px solid #d8d9da;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
   }
 }
 .cabecalho__expansao-tipos {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: start;
-  gap: 4.88rem;
   display: none;
   position: absolute;
-  background-color: #fff;
+  top: 100%;
   left: 0;
   right: 0;
-  top: 100%;
+  background-color: #fff;
   padding: 3.12rem 4.88rem;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
 }
@@ -1053,7 +1050,7 @@ img {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  transition: transform ease-in-out 0.1s;
+  transition: transform ease-in-out 0.3s;
 }
 .produto__imagem img:hover {
   transform: translate(0, -50%) scale(1.5);
@@ -1209,7 +1206,7 @@ img {
   color: #585858;
   border: solid 1px #585858;
   cursor: pointer;
-  transition: color ease-in 0.1s, background-color ease-in 0.1s;
+  transition: color ease-in 0.3s, background-color ease-in 0.1s;
 }
 .menu__fechar-filtro:hover {
   color: #fff;
@@ -1279,7 +1276,7 @@ img {
 .menu__expansivel-conteudo {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
 }
 .menu__cores {
   display: flex;
