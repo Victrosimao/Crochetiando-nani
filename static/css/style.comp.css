@@ -1046,13 +1046,14 @@ img {
 }
 .produto__imagem {
   height: auto;
-  aspect-ratio: 500/500;
+  width: auto;
+  aspect-ratio: 300/500;
   overflow: hidden;
   position: relative;
 }
 .produto__imagem img {
   position: absolute;
-  top: 30%;
+  top: 60%;
   transform: translate(0, -50%);
   transition: transform ease-in-out 0.5s;
 }

@@ -82,7 +82,20 @@
   
           <div class="menu__expansivel-conteudo">
             <div class="menu__categorias">
-            {% if request.path == '/loja/amigurumi/' %}
+            {% if request.path == '/loja/' %}
+              {% for tipo in tipos_navegacao %}
+                <div class="menu__categoria">
+                  <div class="menu__categoria-quadrado"></div>
+                  <div class="menu__categoria-texto">{{ tipo.nome }}</div>
+                  <input
+                    class="menu__checkbox"
+                    type="radio"
+                    name="tipo"
+                    value="{{ tipo.slug }}"
+                  />
+                </div>
+              {% endfor %}
+            {% elif request.path == '/loja/amigurumi/' %}
                 <div class="menu__categoria">
                   <div class="menu__categoria-quadrado"></div>
                   <div class="menu__categoria-texto">Amigurumi Animado</div>
