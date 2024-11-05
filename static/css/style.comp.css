@@ -2,7 +2,7 @@
 .checkout__botao, .subtotal__botao, .s-produto__adicicionar {
   margin-top: 1.28rem;
   width: 100%;
-  background-color: #38ab6b;
+  background-color: #daa320;
   border-radius: 8px;
   color: #fff;
   font-size: inherit;
@@ -15,7 +15,7 @@
   text-align: center;
 }
 .checkout__botao:hover, .subtotal__botao:hover, .s-produto__adicicionar:hover {
-  background-color: #2b8553;
+  background-color: #daa320;
 }
 
 * {
@@ -258,7 +258,7 @@ img {
     justify-content: space-between;
     gap: 0;
     border-width: 0;
-    margin: 0 2rem 2rem 2rem;
+    margin: 2rem 2rem 2rem 2rem;
   }
   .cabecalho__link::after {
     content: "❯";
@@ -351,10 +351,13 @@ img {
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
+  min-width: 200px;
+  padding: 1rem 2rem;
   background-color: #fff;
-  padding: 3.12rem 4.88rem;
-  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 @media (max-width: 59.375em) {
   .cabecalho__expansao-tipos {
@@ -367,6 +370,7 @@ img {
     flex-direction: column;
     gap: 2rem;
     transition: max-height 0.3s ease-in-out;
+    margin-top: 1rem;
   }
 }
 .cabecalho__imagem {
@@ -957,7 +961,7 @@ img {
   height: 20px;
   background-color: #fff;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px #c6c6c6;
+  box-shadow: 0 0 0 1px #daa320;
   cursor: pointer;
 }
 .sliders_control input[type=range]::-moz-range-thumb {
@@ -1042,18 +1046,18 @@ img {
 }
 .produto__imagem {
   height: auto;
-  aspect-ratio: 428/500;
+  aspect-ratio: 500/500;
   overflow: hidden;
   position: relative;
 }
 .produto__imagem img {
   position: absolute;
-  top: 50%;
+  top: 30%;
   transform: translate(0, -50%);
-  transition: transform ease-in-out 0.3s;
+  transition: transform ease-in-out 0.5s;
 }
 .produto__imagem img:hover {
-  transform: translate(0, -50%) scale(1.5);
+  transform: translate(0, -50%) scale(1.2);
 }
 .produto__textos {
   display: flex;
@@ -1231,7 +1235,7 @@ img {
   border-bottom: 1px solid #d8d9da;
 }
 .menu__botao {
-  background-color: #38ab6b;
+  background-color: #daa320;
   color: #fff;
   text-transform: uppercase;
   border-radius: 4px;
