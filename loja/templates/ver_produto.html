@@ -40,7 +40,9 @@
 
           <p class="s-produto__preco">R$ {{ produto.preco }}</p>
         </div>
-
+        
+      <form method="POST" action="{% url 'adicionar_carrinho' produto.id %}">
+            {% csrf_token %}
         {% if tem_estoque %}
         <div class="s-produto__descricao">
           <p class="s-produto__descricao-titulo">Descrição do produto</p>
@@ -120,10 +122,8 @@
             {% endif %}
           </div>
         </div>
-        <form method="POST" action="{% url 'adicionar_carrinho' produto.id %}"></form>
-            {% csrf_token %}
             <button type="submit" class="s-produto__adicicionar">Adicionar à sacola</button>
-        </form>
+      </form>
         {% else %}
         <h3>Item fora de estoque</h3>
         {% endif %}
