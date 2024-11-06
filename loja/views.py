@@ -288,8 +288,9 @@ def criar_conta(request):
         return redirect("loja")
     if request.method == "POST":
         dados = request.POST.dict()
-        if "email" in dados and "senha" in dados and "confirmar_senha" in dados:
-            # criar conta
+        if "email" in dados and "senha" in dados and "confirmar_senha" in dados and "nome" in dados:
+            # Captura os dados do formulário
+            nome = dados.get("nome")
             email = dados.get("email")
             senha = dados.get("senha")
             confirmar_senha = dados.get("confirmar_senha")
@@ -298,18 +299,17 @@ def criar_conta(request):
             except ValidationError:
                 erro = "email_invalido"
             if senha == confirmar_senha:
-                # criar conta
+                # Cria o usuário
                 usuario, criado = User.objects.get_or_create(username=email, email=email)
                 if not criado:
                     erro = "usuario_existente"
                 else:
                     usuario.set_password(senha)
                     usuario.save()
-                    # fazer o login
+                    # Faz o login
                     usuario = authenticate(request, username=email, password=senha)
                     login(request, usuario)
-                    # criar o cliente
-                    # verificar se existe o id_sessao nos cookies
+                    # Cria o cliente associado ao usuário
                     if request.COOKIES.get("id_sessao"):
                         id_sessao = request.COOKIES.get("id_sessao")
                         cliente, criado = Cliente.objects.get_or_create(id_sessao=id_sessao)
@@ -317,6 +317,7 @@ def criar_conta(request):
                         cliente, criado = Cliente.objects.get_or_create(email=email)
                     cliente.usuario = usuario
                     cliente.email = email
+                    cliente.nome = nome  # Associa o nome ao cliente
                     cliente.save()
                     return redirect("loja")
             else:

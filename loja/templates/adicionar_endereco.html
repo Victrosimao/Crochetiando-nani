@@ -3,20 +3,56 @@
 
 {% block body %}
 
-<h3>Adicionar Endereço</h3>
-<a href="{% url 'checkout' %}">Voltar para a compra</a>
+<main class="principal">
+    <section class="conta">
+      <div class="conta__container">
+        <div class="checkout__titulos">
+          <p class="checkout__titulo">Adicione um novo endereço</p>
+        </div>
 
-<h3>Adicione um endereço</h3>
-<form method="POST" action="{% url 'adicionar_endereco' %}">
-    {% csrf_token %}
-    <input type="text" name="rua" placeholder="Rua">
-    <input type="number" name="numero" placeholder="Nº">
-    <input type="text" name="complemento" placeholder="Complemento">
-    <input type="number" name="cep" placeholder="CEP">
-    <input type="text" name="cidade" placeholder="Cidade">
-    <input type="text" name="estado" placeholder="Estado">
-    <button type="submit">Adicionar Endereço</button>
-</form>
+        <form
+          class="conta__form"
+          action="{% url 'adicionar_endereco' %}"
+          method="post"
+        >
+        {% csrf_token %}
 
+          <div class="conta__item">
+            <label for="cep">CEP</label>
+            <input id="cep" name="cep" type="text" placeholder="CEP" pattern="\d{8}" maxlength="8" title="Digite 8 dígitos numéricos" required />
+          </div>
+          <br>
+
+          <div class="conta__item">
+            <label for="rua">Rua</label>
+            <input id="rua" name="rua" type="text" placeholder="Rua" required />
+          </div>
+
+          <div class="conta__item">
+            <label for="numero">Número</label>
+            <input id="numero" name="numero" type="number" placeholder="Número" min="1" required />
+          </div>
+
+          <div class="conta__item">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" name="cidade" type="text" placeholder="Cidade" required />
+          </div>
+
+          <div class="conta__item">
+            <label for="estado">Estado</label>
+            <input id="estado" name="estado" type="text" placeholder="Estado" maxlength="2" required />
+          </div>
+
+          <button class="subtotal__botao" type="submit">
+            Adicionar Endereço
+          </button>
+        </form>
+        <a href="{% url 'checkout' %}">Retornar para a compra</a>
+      </div>
+    </section>
+  </main>
+
+
+  <script src="{% static 'js/viacep.js' %}"></script>
 
 {% endblock %}

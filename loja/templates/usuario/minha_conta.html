@@ -44,8 +44,17 @@
 
           <div class="conta__item">
             <label for="telefone">Telefone</label>
-            <input name="telefone" type="number" placeholder="Telefone" value="{{ request.user.cliente.telefone }}" />
-          </div>
+            <input 
+                name="telefone" 
+                type="tel" 
+                pattern="\d{10,11}" 
+                placeholder="Telefone" 
+                value="{{ request.user.cliente.telefone }}" 
+                title="Digite um telefone válido com 10 ou 11 dígitos" 
+                required
+            />
+        </div>
+        
 
           <button class="subtotal__botao" type="submit">
             Salvar alterações
