@@ -2,6 +2,8 @@ from django.db.models import Max, Min
 from django.core.mail import send_mail
 from django.http import HttpResponse
 import csv
+import requests
+import xml.etree.ElementTree as ET
 
 def filtrar_produtos(produtos, filtro):
     if filtro:

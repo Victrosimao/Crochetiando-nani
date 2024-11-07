@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'banco_de_dados',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Panudo123!',
         'HOST': 'localhost',  # ou o IP do servidor de banco de dados
         'PORT': '3306',  # Porta padrão do MySQL
         'OPTIONS': {

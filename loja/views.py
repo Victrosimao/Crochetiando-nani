@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib import messages
 from .models import *
 import uuid
 from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos, enviar_email_compra, exportar_csv
@@ -9,6 +10,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from .api_mercadopago import criar_pagamento
+
+
 
 # Create your views here.
 def homepage(request):
@@ -51,6 +54,7 @@ def ver_produto(request, id_produto):
 def adicionar_carrinho(request, id_produto):
     if request.method == "POST" and id_produto:
         resposta = redirect('carrinho')
+        
         if request.user.is_authenticated:
             cliente = request.user.cliente
         else:
@@ -60,11 +64,32 @@ def adicionar_carrinho(request, id_produto):
                 id_sessao = str(uuid.uuid4())
                 resposta.set_cookie(key='id_sessao', value=id_sessao, max_age=60*60*24*7)
             cliente, criado = Cliente.objects.get_or_create(id_sessao=id_sessao)
+        
+        # Obter o pedido ou criar um novo
         pedido, criado = Pedido.objects.get_or_create(cliente=cliente, finalizado=False)
-        item_estoque = ItemEstoque.objects.get(produto_id=id_produto,)
-        item_pedido, criado = ItensPedido.objects.get_or_create(item_estoque=item_estoque, pedido=pedido)
-        item_pedido.quantidade += 1
-        item_pedido.save()
+
+        # Obter o item de estoque relacionado ao produto
+        item_estoque = ItemEstoque.objects.filter(produto_id=id_produto)
+
+        # Verificar se o produto tem estoque disponível
+        if item_estoque.exists():
+            # Suponhamos que o produto tenha várias entradas de estoque, podemos pegar o primeiro
+            item_estoque = item_estoque.first()
+            estoque_disponivel = item_estoque.quantidade  # Aqui você pode ajustar conforme o modelo real de estoque
+
+            item_pedido, criado = ItensPedido.objects.get_or_create(item_estoque=item_estoque, pedido=pedido)
+
+            # Verificar se a quantidade do item no carrinho não excede o estoque disponível
+            if item_pedido.quantidade < estoque_disponivel:
+                item_pedido.quantidade += 1
+                item_pedido.save()
+            else:
+                # Se a quantidade exceder o estoque, adicionar uma mensagem de erro
+                messages.error(request, f"Não há estoque suficiente para adicionar {item_estoque.produto.nome} ao seu carrinho.")
+        else:
+            # Se não houver estoque, adicionar uma mensagem de erro
+            messages.error(request, f"O produto {item_estoque.produto.nome} está fora de estoque.")
+        
         return resposta
     else:
         return redirect('loja')

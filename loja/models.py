@@ -33,6 +33,10 @@ class Produto(models.Model):
     ativo = models.BooleanField(default=True)
     categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.SET_NULL)
     tipo = models.ForeignKey(Tipo, null=True, blank=True, on_delete=models.SET_NULL)
+    peso = models.DecimalField(max_digits=5, decimal_places=2, default=3)  
+    comprimento = models.DecimalField(max_digits=5, decimal_places=2, default=20)  
+    altura = models.DecimalField(max_digits=5, decimal_places=2, default=20)  
+    largura = models.DecimalField(max_digits=5, decimal_places=2, default=20)  
 
     def __str__(self):
         return f"Nome: {self.nome} / Categoria: {self.categoria} / Tipo: {self.tipo} / Preço: {self.preco}"

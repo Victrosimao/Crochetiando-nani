@@ -4,6 +4,14 @@
 {% block body %}
 
 <main class="principal">
+  {% if messages %}
+    <div class="mensagens">
+        {% for message in messages %}
+        <br>
+            <div class="erro">{{ message }}</div>
+        {% endfor %}
+    </div>
+  {% endif %}
     {% if cliente_existente %}
     <section class="carrinho">
       <div class="sacola">
