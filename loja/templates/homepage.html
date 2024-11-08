@@ -4,6 +4,10 @@
 {% block body %}
 
 
+<div class="foto_homepage-section">
+    <img src="{% static 'images/foto_paginicial.png' %}" alt="foto da pagina inicial">
+    <a href="{% url 'loja' %}" class="botao-loja">Visite a Loja</a>
+</div>
 
 {% for banner in banners %}
 <a href="{% url 'loja' %}{{ banner.link_destino }}">

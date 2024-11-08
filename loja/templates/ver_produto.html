@@ -14,7 +14,7 @@
           
         </div>
 
-        <div class="s-produto__carrossel-botoes">
+        <!-- <div class="s-produto__carrossel-botoes">
           <div
             class="s-produto__carrossel-botao s-produto__carrossel-botao--selecionado"
           ></div>
@@ -23,7 +23,7 @@
           <div class="s-produto__carrossel-botao"></div>
           <div class="s-produto__carrossel-botao"></div>
         </div>
-      </div>
+      </div> -->
 
       <div class="s-produto__informacoes">
         <div class="s-produto__breadcrumbs">
@@ -42,7 +42,7 @@
         </div>
         
       <form method="POST" action="{% url 'adicionar_carrinho' produto.id %}">
-            {% csrf_token %}
+        {% csrf_token %}
         {% if tem_estoque %}
         <div class="s-produto__descricao">
           <p class="s-produto__descricao-titulo">Descrição do produto</p>
@@ -52,8 +52,11 @@
               {{ produto.nome }}
             </p>
             <p>
-              Tamanho: 30 x 40 cm <br>
-              Linha: (tipo da linha)
+            Material: (tipo de material) <br>
+            Tamanho: 15 x 10cm <br>
+            Cor: Colorido <br>
+            Feito à mão <br>
+            Instruções de cuidado: lavagem à mão com sabão neutro
             </p>
             <p>
               CÓDIGO DO PRODUTO <br />
@@ -65,7 +68,7 @@
             </p>
             <p>
             Material: (tipo de material) <br>
-            Tamanho: 30 x 25cm <br>
+            Tamanho: 15 x 10cm <br>
             Cor: Colorido <br>
             Feito à mão <br>
             Instruções de cuidado: lavagem à mão com sabão neutro
@@ -124,7 +127,7 @@
         </div>
             <button type="submit" class="s-produto__adicicionar">Adicionar ao carrinho</button>
       </form>
-        {% else %}
+      {% elif not tem_estoque %}
         <h3>Item fora de estoque</h3>
         {% endif %}
       </div>

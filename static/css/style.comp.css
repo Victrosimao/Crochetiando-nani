@@ -92,7 +92,6 @@ img {
   background: #bdbdbd;
   border-radius: 10px;
 }
-
 .cabecalho {
   position: sticky;
   top: 10;
@@ -1116,6 +1115,98 @@ img {
     top: 2px;
   }
 }
+
+.botao-loja {
+  position: absolute;
+  top: 80%; /* Posiciona o botão no centro vertical da imagem */
+  left: 25%; /* Centraliza o botão horizontalmente */
+  transform: translate(-50%, -50%); /* Centraliza exatamente no meio */
+  padding: 15px 30px;
+  background-color: rgba(8, 8, 8, 0.6); /* Leve transparência para destaque */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+.botao-loja:hover {
+  background-color: #daa320;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 1024px) {
+  .botao-loja {
+      top: 40%;
+      left: 25%;
+      font-size: 1em;
+      padding: 12px 24px;
+  }
+}
+
+.foto_homepage-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  
+  max-width: 1280px;
+  margin: 0 auto;
+  height: auto; /* Permite que o contêiner se ajuste ao tamanho da imagem */
+}
+
+.foto_homepage {
+  width: 100%;
+  height: auto;
+}
+
+.botao-loja {
+  position: absolute;
+  padding: 20px 37px;
+  background-color: rgba(8, 8, 8, 0.151);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.botao-loja:hover {
+  background-color: #daa320;
+}
+
+/* Ajustes de tamanho do botão em diferentes resoluções */
+@media (max-width: 1280px) {
+  .botao-loja {
+      font-size: 1.2em;
+  }
+}
+
+@media (max-width: 1024px) {
+  .botao-loja {
+      font-size: 1em;
+      padding: 12px 24px;
+  }
+}
+
+@media (max-width: 720px) {
+  .botao-loja {
+      font-size: 0.9em;
+      padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .botao-loja {
+      font-size: 0.8em;
+      padding: 8px 18px;
+  }
+}
+
 
 .banner-grid {
   display: grid;

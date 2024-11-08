@@ -73,7 +73,7 @@ class Pedido(models.Model):
     data_finalizacao = models.DateTimeField(null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"Cliente: {self.cliente} / id_pedido: {self.id} / Finalizado {self.finalizado}"
+        return f"id_pedido: {self.id} / Cliente: {self.cliente} / Finalizado {self.finalizado}"
 
     @property
     def quantidade_total(self):
@@ -117,3 +117,5 @@ class Pagamento(models.Model):
     pedido = models.ForeignKey(Pedido, null=True, blank=True, on_delete=models.SET_NULL)
     aprovado = models.BooleanField(default=False)
 
+    def __str__(self) -> str:
+        return f"Id pedido: {self.pedido.id} - Data : {self.pedido.data_finalizacao}"
