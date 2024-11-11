@@ -32,14 +32,14 @@
                 type="range"
                 value=0
                 min=0
-                max={% localize off %}{{ maximo }}{% endlocalize %}
+                max=500
               />
               <input
                 id="toSlider"
                 type="range"
                 value={% localize off %}{{ maximo }}{% endlocalize %}
                 min=0
-                max={% localize off %}{{ maximo }}{% endlocalize %}
+                max=500
               />
             </div>
   
@@ -53,7 +53,7 @@
                     name="preco_minimo"
                     value=0
                     min=0
-                    max={% localize off %}{{ maximo }}{% endlocalize %}
+                    max=500
                   />
                 </div>
                 <p>até</p>
@@ -63,9 +63,9 @@
                     type="number"
                     id="toInput"
                     name="preco_maximo"
-                    value={% localize off %}{{ maximo }}{% endlocalize %}
+                    value=500
                     min=0
-                    max={% localize off %}{{ maximo }}{% endlocalize %}
+                    max=500
                   />
                 </div>
               </div>
@@ -75,7 +75,7 @@
           </div>
         </div>
   
-        <div class="menu__expansivel">
+        <!-- <div class="menu__expansivel">
           <div class="menu__expansivel-cabecalho menu__expansivel-cabecalho--aberto">
             <p class="menu__subtitulo">Tipo</p>
           </div>
@@ -142,7 +142,7 @@
               {% endif %}
             </div>
           </div>
-        </div>
+        </div> -->
       </form>
 
       <div class="produtos">

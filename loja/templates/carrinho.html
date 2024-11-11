@@ -46,7 +46,6 @@
             <td class="tabela__preco-unit">
               <p class="tabela__preco">R$ {{ item.item_estoque.produto.preco }}</p>
             </td>
-
             <td class="tabela__qtd">
               <div class="tabela__quantidade">
                 <form method="POST" action="{% url 'remover_carrinho' item.item_estoque.produto.id %}">

@@ -381,3 +381,9 @@ def exportar_relatorio(request, relatorio):
         return exportar_csv(informacoes)
     else:
         return redirect('gerenciar_loja')
+
+def faq(request):
+    return render(request, 'faq.html')
+
+def sobre(request):
+    return render(request, 'sobre.html')
