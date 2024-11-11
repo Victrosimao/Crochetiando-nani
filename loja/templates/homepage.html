@@ -5,8 +5,9 @@
 
 
 <div class="foto_homepage-section">
+    <a href="{% url 'loja' %}">
     <img src="{% static 'images/foto_paginicial.png' %}" alt="foto da pagina inicial">
-    <a href="{% url 'loja' %}" class="botao-loja">Visite a Loja</a>
+    </a>
 </div>
 
 {% for banner in banners %}
