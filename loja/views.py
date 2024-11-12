@@ -114,6 +114,7 @@ def remover_carrinho(request, id_produto):
         return redirect('carrinho')
     else:
         return redirect('loja')
+    
 
 def carrinho(request):
     if request.user.is_authenticated:
