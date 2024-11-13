@@ -12,3 +12,5 @@ admin.site.register(Pedido)
 admin.site.register(ItensPedido)
 admin.site.register(Banner)
 admin.site.register(Pagamento)
+admin.site.register(Avaliacao)
+

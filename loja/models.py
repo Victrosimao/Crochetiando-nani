@@ -119,3 +119,12 @@ class Pagamento(models.Model):
 
     def __str__(self) -> str:
         return f"Id pedido: {self.pedido.id} - Data : {self.pedido.data_finalizacao}"
+    
+class Avaliacao(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    produto = models.CharField(max_length=255)  # Aqui você pode usar um campo relacionado ao modelo Produto
+    comentario = models.TextField()
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Avaliação de {self.usuario.username} sobre {self.produto}"

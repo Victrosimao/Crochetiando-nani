@@ -1,4 +1,5 @@
 import mercadopago
+from django.urls import reverse
 
 public_key = "APP_USR-a067d3e3-31b0-47f2-bd5d-1dd4e70e2c57"
 token = "APP_USR-6104662027384698-102814-2efa78b75bec002e728291805a1f81c9-2064784916"
@@ -19,6 +20,7 @@ def criar_pagamento(itens_pedido, link):
             "quantity": quantidade,
             "unit_price": preco_unitario,
         })
+
 
     # valor total
     preference_data = {

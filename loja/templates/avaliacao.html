@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+<body>
+    <h1>Avalie o Produto</h1>
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="avaliacao">Sua avaliação:</label><br>
+        <textarea name="avaliacao" id="avaliacao" rows="4" cols="50" placeholder="Deixe sua opinião aqui..."></textarea><br><br>
+        <section class="carrinho">
+        <button type="submit" class="subtotal__botao">Enviar Avaliação</button>
+        </section>
+    </form>
+
+    {% if mensagem %}
+        <p>{{ mensagem }}</p>
+    {% endif %}
+</body>
+
+
+
+{% endblock %}

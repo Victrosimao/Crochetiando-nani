@@ -388,3 +388,22 @@ def faq(request):
 
 def sobre(request):
     return render(request, 'sobre.html')
+
+@login_required  # Garantir que apenas usuários autenticados possam avaliar
+def avaliar_produto(request):
+    if request.method == 'POST':
+        avaliacao_texto = request.POST.get('avaliacao')
+        produto = "Produto Exemplo"  # Aqui você pode associar ao produto correto, se necessário
+
+        # Cria uma nova avaliação no banco de dados
+        Avaliacao.objects.create(usuario=request.user, produto=produto, comentario=avaliacao_texto)
+
+        return redirect('avaliacao_concluida')  # Redireciona para uma página de confirmação
+
+    return render(request, 'avaliacao.html')
+
+def listar_avaliacoes(request):
+    # Pega todas as avaliações do banco de dados
+    avaliacoes = Avaliacao.objects.all()
+    return render(request, 'listar_avaliacoes.html', {'avaliacoes': avaliacoes})
+

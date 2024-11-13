@@ -7,21 +7,29 @@
 
 
     {% if alterado %}
-    <p>Alterações salvas com sucesso</p>
+    <p><strong>Alterações salvas com sucesso</strong></p>
     {% endif %}
 
     {% if erro == "formulario_invalido" %}
-    <p>Formulário Inválido, tente novamente</p>
+    <p><strong>Formulário Inválido, tente novamente</strong></p>
+    {% endif %}
+
+    {% if erro == "senha_incorreta" %}
+    <p><strong>Senha incorreta</strong></p>
+    {% endif %}
+    
+    {% if erro == "senhas_diferentes" %}
+    <p><strong>Nova senha e confirmação da nova senha não estão iguais</strong></p>
+    {% endif %}
+
+    {% if erro == "email_existente" %}
+    <p><strong>Já existe um usuário com esse e-mail</strong></p>
     {% endif %}
 
       <div class="conta__container">
         <div class="checkout__titulos">
           <p class="checkout__titulo">Dados pessoais</p>
         </div>
-
-        {% if erro == "email_existente" %}
-        <p>Já existe um usuário com esse e-mail</p>
-        {% endif %}
 
         <form
           class="conta__form"
@@ -66,14 +74,6 @@
         <div class="checkout__titulos">
           <p class="checkout__titulo">Alterar a Senha</p>
         </div>
-
-        {% if erro == "senha_incorreta" %}
-        <p>Sua senha está incorreta</p>
-        {% endif %}
-    
-        {% if erro == "senhas_diferentes" %}
-        <p>Nova Senha e confirmação da nova senha não estão iguais</p>
-        {% endif %}
 
         <form
           class="conta__form"
