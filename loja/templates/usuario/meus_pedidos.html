@@ -4,11 +4,21 @@
 {% block body %}
 
 <main class="principal">
-    <section class="conta">
+  <section class="conta">
+    
       <div class="conta__container">
         <div class="checkout__titulos">
+
+          <h3>Gostou? Avalie nossos produtos</h3>
+          
+      <a href="{% url 'avaliacao' %}" class="subtotal__botao">Avalie aqui</a>
+
+          <br>
+          </br>
+
           <p class="checkout__titulo">Meus pedidos</p>
-        </div>
+
+    
 
         {% for pedido in pedidos %}
         <div class="pedido">
@@ -56,15 +66,7 @@
 
       </div>
     </section>
-  </main>
-
-
-  <section class="carrinho">
-    <div class="sacola">
-    <h3>Avalie nossos produtos</h3>
-    <a href="{% url 'avaliacao' %}" class="subtotal__botao">Avaliação</a>
     </div>
-    </section>
-
+  </main>
 
 {% endblock %}

@@ -1146,21 +1146,17 @@ img {
   }
 }
 
-.foto_homepage-container {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;  
-  max-width: 1280px;
-  margin: 0 auto;
-  height: auto; /* Permite que o contêiner se ajuste ao tamanho da imagem */
-}
 
 .foto_homepage {
   width: 100%;
   height: auto;
+  transition: transform 0.3s ease-in-out;
 }
+
+.foto_homepage:hover {
+  transform: scale(1.05);
+}
+
 
 .banner-grid {
   display: grid;

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
 from .models import *
@@ -389,23 +389,27 @@ def faq(request):
 def sobre(request):
     return render(request, 'sobre.html')
 
-@login_required  # Garantir que apenas usuários autenticados possam avaliar
+@login_required  # Garante que apenas usuários autenticados possam avaliar
 def avaliar_produto(request):
-    produtos = Produto.objects.all()  # Carrega todos os produtos
+    # Filtra produtos comprados pelo usuário em pedidos finalizados
+    pedidos_usuario = Pedido.objects.filter(cliente=request.user.cliente, finalizado=True)
+    produtos_comprados = Produto.objects.filter(
+        id__in=[item.item_estoque.produto.id for pedido in pedidos_usuario for item in pedido.itens]
+    )
 
     if request.method == 'POST':
         produto_id = request.POST.get('produto')
         comentario = request.POST.get('avaliacao')
-        
-        # Obtém o produto selecionado
-        produto = Produto.objects.get(id=produto_id)
-        
+
+        # Verifica se o produto selecionado está na lista de produtos comprados
+        produto = get_object_or_404(produtos_comprados, id=produto_id)
+
         # Cria uma nova avaliação no banco de dados
         Avaliacao.objects.create(usuario=request.user, produto=produto.nome, comentario=comentario)
 
         return redirect('listar_avaliacoes')  # Redireciona para a página de confirmação
 
-    return render(request, 'avaliacao.html', {'produtos': produtos})
+    return render(request, 'avaliacao.html', {'produtos': produtos_comprados})
 
 def listar_avaliacoes(request):
     # Pega todas as avaliações do banco de dados

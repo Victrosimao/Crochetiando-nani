@@ -42,12 +42,12 @@
             <input name="nome" type="text" placeholder="Nome Completo" 
             {% if request.user.cliente.nome %}
                 value="{{ request.user.cliente.nome }}"
-            {% endif %} />
+            {% endif %} required />
           </div>
 
           <div class="conta__item conta__item--email">
             <label for="email">E-mail</label>
-            <input name="email" type="email" placeholder="Email" value="{{ request.user.email }}" />
+            <input name="email" type="email" placeholder="Email" value="{{ request.user.email }}" required />
           </div>
 
           <div class="conta__item">
@@ -83,17 +83,19 @@
         {% csrf_token %}
           <div class="conta__item">
             <label for="senha_atual">Senha Atual</label>
-            <input name="senha_atual" type="password" />
+            <input name="senha_atual" type="password" required/>
           </div>
+
+          <br>
 
           <div class="conta__item">
             <label for="nova_senha">Nova Senha</label>
-            <input name="nova_senha" type="password" />
+            <input name="nova_senha" type="password" required/>
           </div>
 
           <div class="conta__item">
             <label for="nova_senha_confirmacao">Confirmação da Nova Senha</label>
-            <input name="nova_senha_confirmacao" type="password" />
+            <input name="nova_senha_confirmacao" type="password" required/>
           </div>
 
           <button class="subtotal__botao" type="submit">

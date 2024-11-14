@@ -3,22 +3,23 @@
 
 {% block body %}
 
-
 <div class="foto_homepage-section">
     <a href="{% url 'loja' %}">
-    <img src="{% static 'images/foto_paginicial.png' %}" alt="foto da pagina inicial">
+        <img class="foto_homepage" src="{% static 'images/foto_paginicial.png' %}" alt="foto da página inicial">
     </a>
 </div>
 
 {% for banner in banners %}
-<a href="{% url 'loja' %}{{ banner.link_destino }}">
-    <img src="{{banner.imagem.url}}">
-</a>
+<div class="banner">
+    <a href="{% url 'loja' %}{{ banner.link_destino }}">
+        <img class="foto_homepage" src="{{ banner.imagem.url }}" alt="banner">
+    </a>
+</div>
 {% endfor %}
 
 <div class="foto_homepage-section">
     <a href="{% url 'listar_avaliacoes' %}">
-    <img src="{% static 'images/avaliacoes.png' %}" alt="foto da pagina inicial">
+        <img class="foto_homepage" src="{% static 'images/avaliacoes.png' %}" alt="foto das avaliações">
     </a>
 </div>
 
