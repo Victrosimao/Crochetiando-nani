@@ -2459,6 +2459,15 @@ img {
       font-size: 1em;
   }
 }
-
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 1em;
+  color: #333333;
+  margin-bottom: 20px;
+}
 
 /*# sourceMappingURL=style.comp.css.map */

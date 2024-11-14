@@ -391,16 +391,21 @@ def sobre(request):
 
 @login_required  # Garantir que apenas usuários autenticados possam avaliar
 def avaliar_produto(request):
+    produtos = Produto.objects.all()  # Carrega todos os produtos
+
     if request.method == 'POST':
-        avaliacao_texto = request.POST.get('avaliacao')
-        produto = "Produto Exemplo"  # Aqui você pode associar ao produto correto, se necessário
-
+        produto_id = request.POST.get('produto')
+        comentario = request.POST.get('avaliacao')
+        
+        # Obtém o produto selecionado
+        produto = Produto.objects.get(id=produto_id)
+        
         # Cria uma nova avaliação no banco de dados
-        Avaliacao.objects.create(usuario=request.user, produto=produto, comentario=avaliacao_texto)
+        Avaliacao.objects.create(usuario=request.user, produto=produto.nome, comentario=comentario)
 
-        return redirect('avaliacao_concluida')  # Redireciona para uma página de confirmação
+        return redirect('listar_avaliacoes')  # Redireciona para a página de confirmação
 
-    return render(request, 'avaliacao.html')
+    return render(request, 'avaliacao.html', {'produtos': produtos})
 
 def listar_avaliacoes(request):
     # Pega todas as avaliações do banco de dados
