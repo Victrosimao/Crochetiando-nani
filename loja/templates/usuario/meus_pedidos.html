@@ -9,15 +9,35 @@
       <div class="conta__container">
         <div class="checkout__titulos">
 
-          <h3>Gostou? Avalie nossos produtos</h3>
-          
-      <a href="{% url 'avaliacao' %}" class="subtotal__botao">Avalie aqui</a>
+          {% if not pedidos %}
+
+          <h2 class="checkout__titulo">Meus pedidos</h2>
 
           <br>
-          </br>
+          <br>
 
-          <p class="checkout__titulo">Meus pedidos</p>
+          <p>Você ainda não tem nenhum pedido</p>
 
+          <p></p>
+
+        </div>
+      </div>
+
+  </section>
+</main>
+        
+          {% else %}
+
+          <h3>Gostou? Avalie nossos produtos</h3>
+          
+          <a href="{% url 'avaliacao' %}" class="subtotal__botao">Avalie aqui</a>
+    
+              <br>
+              </br>
+    
+
+          <h2 class="checkout__titulo">Meus pedidos</h2>
+            
     
 
         {% for pedido in pedidos %}
@@ -69,4 +89,7 @@
     </div>
   </main>
 
+
+          {% endif %}
+          
 {% endblock %}
