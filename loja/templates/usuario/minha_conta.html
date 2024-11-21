@@ -10,6 +10,11 @@
     <p><strong>Alterações salvas com sucesso</strong></p>
     {% endif %}
 
+    {% if erro == "senha_invalida" %}
+    <p><strong>A nova senha deve ter pelo menos 8 caracteres, incluindo letras, números e ao menos um caractere especial.</strong></p>
+    {% endif %}
+
+
     {% if erro == "formulario_invalido" %}
     <p><strong>Formulário Inválido, tente novamente</strong></p>
     {% endif %}
@@ -105,5 +110,31 @@
       </div>
     </section>
   </main> 
+
+  <script>
+    function validarSenha() {
+      const senha = document.getElementById('nova_senha').value;
+      const confirmarSenha = document.getElementById('nova_senha_confirmacao').value;
+      const erroSenha = document.getElementById('erro-senha');
+  
+      // Regex para validar a senha
+      const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:"<>?]).{8,}$/;
+  
+      if (!regex.test(senha)) {
+        erroSenha.textContent = "A senha deve ter pelo menos 8 caracteres, incluindo letras, números e ao menos um caractere especial.";
+        erroSenha.style.display = "block";
+        return false;
+      }
+  
+      if (senha !== confirmarSenha) {
+        erroSenha.textContent = "As senhas não coincidem.";
+        erroSenha.style.display = "block";
+        return false;
+      }
+  
+      erroSenha.style.display = "none";
+      return true;
+    }
+  </script>
 
 {% endblock %}

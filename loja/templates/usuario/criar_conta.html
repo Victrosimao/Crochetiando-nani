@@ -10,6 +10,11 @@
           <h2 class="checkout__titulo">Preencha seus dados para criar uma conta</h2>
         </div>
 
+        {% if erro == "senha_invalida" %}
+        <p>A senha deve ter pelo menos 8 caracteres, incluindo letras, números e ao menos um caractere especial.</p>
+        {% endif %}
+
+
         {% if erro == "preenchimento" %}
         <p>Preencha todas as informações do formulário corretamente para criar uma conta</p>
         {% endif %}
@@ -61,5 +66,31 @@
       </div>
     </section>
   </main>
+
+  <script>
+    function validarSenha() {
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmar_senha').value;
+      const erroSenha = document.getElementById('erro-senha');
+  
+      // Regex para validar a senha
+      const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:"<>?]).{8,}$/;
+  
+      if (!regex.test(senha)) {
+        erroSenha.textContent = "A senha deve ter pelo menos 8 caracteres, incluindo letras, números e ao menos um caractere especial.";
+        erroSenha.style.display = "block";
+        return false;
+      }
+  
+      if (senha !== confirmarSenha) {
+        erroSenha.textContent = "As senhas não coincidem.";
+        erroSenha.style.display = "block";
+        return false;
+      }
+  
+      erroSenha.style.display = "none";
+      return true;
+    }
+  </script>
 
 {% endblock %}

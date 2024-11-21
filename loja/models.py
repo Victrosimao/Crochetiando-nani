@@ -55,7 +55,7 @@ class ItemEstoque(models.Model):
 
 class Endereco(models.Model):
     rua = models.CharField(max_length=400, null=True, blank=True)
-    numero = models.IntegerField(default=0)
+    numero = models.CharField(max_length=200, null=True, blank=True, default="S/N")
     complemento = models.CharField(max_length=200, null=True, blank=True)
     cep = models.CharField(max_length=200, null=True, blank=True)
     cidade = models.CharField(max_length=200, null=True, blank=True)

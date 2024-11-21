@@ -3,13 +3,15 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import *
 import uuid
+import re
 from .utils import filtrar_produtos, preco_minimo_maximo, ordenar_produtos, enviar_email_compra, exportar_csv
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from .api_mercadopago import criar_pagamento
+
 
 
 
@@ -219,67 +221,91 @@ def adicionar_endereco(request):
         else:
             if request.COOKIES.get("id_sessao"):
                 id_sessao = request.COOKIES.get("id_sessao")
-                cliente, criado = Cliente.objects.get_or_create(id_sessao = id_sessao)
+                cliente, criado = Cliente.objects.get_or_create(id_sessao=id_sessao)
             else:
                 return redirect('loja')
+
+        # Obtendo os dados do formulário
         dados = request.POST.dict()
-        endereco = Endereco.objects.create(cliente=cliente,
-                                            rua=dados.get("rua"),
-                                            numero=int(dados.get("numero")),
-                                            complemento=dados.get("complemento"),
-                                            cep=dados.get("cep"),
-                                            cidade=dados.get("cidade"),
-                                            estado=dados.get("estado"))
+
+        # Verificando se o campo 'numero' está vazio e atribuindo "S/N" se necessário
+        numero = dados.get("numero") if dados.get("numero") else " S/N"
+
+        # Criando o objeto Endereco
+        endereco = Endereco.objects.create(
+            cliente=cliente,
+            rua=dados.get("rua"),
+            numero=numero,  # Usando o valor de 'numero', que já está com "S/N" se vazio
+            complemento=dados.get("complemento"),
+            cep=dados.get("cep"),
+            cidade=dados.get("cidade"),
+            estado=dados.get("estado")
+        )
         endereco.save()
         return redirect("checkout")
     else:
         context = {}
         return render(request, "adicionar_endereco.html", context)
 
+
 @login_required
 def minha_conta(request):
     erro = None
     alterado = False
+
     if request.method == "POST":
-        dados = request.POST.dict()
-        if "senha_atual" in dados:
-            # esta modificando senha
-            senha_atual = dados.get("senha_atual")
-            nova_senha = dados.get("nova_senha")
-            nova_senha_confirmacao = dados.get("nova_senha_confirmacao")
-            if nova_senha == nova_senha_confirmacao:
-                # verificar se a senha atual ta certa
-                usuario = authenticate(request, username=request.user.email, password=senha_atual)
-                if usuario:
-                    usuario.set_password(nova_senha)
-                    usuario.save()
-                    alterado = True
-                else:
-                    erro = "senha_incorreta"
-            else:
+        if "senha_atual" in request.POST:
+            # Alteração de senha
+            senha_atual = request.POST.get("senha_atual")
+            nova_senha = request.POST.get("nova_senha")
+            nova_senha_confirmacao = request.POST.get("nova_senha_confirmacao")
+
+            # Valida a senha atual
+            if not request.user.check_password(senha_atual):
+                erro = "senha_incorreta"
+
+            # Valida a nova senha
+            elif not validar_senha(nova_senha):
+                erro = "senha_invalida"
+
+            # Confirma a nova senha
+            elif nova_senha != nova_senha_confirmacao:
                 erro = "senhas_diferentes"
-        elif "email" in dados:
-            email = dados.get("email")
-            telefone = dados.get("telefone")
-            nome = dados.get("nome")
-            if email != request.user.email:
-                usuarios = User.objects.filter(email=email)
-                if len(usuarios) > 0:
-                    erro = "email_existente"
+
+            else:
+                # Atualiza a senha
+                request.user.set_password(nova_senha)
+                request.user.save()
+
+                # Atualiza a sessão para evitar logout
+                update_session_auth_hash(request, request.user)
+
+                alterado = True
+
+        else:
+            # Alterações nos dados pessoais
+            nome = request.POST.get("nome")
+            email = request.POST.get("email")
+            telefone = request.POST.get("telefone")
+
+            # Validação do e-mail
+            try:
+                validate_email(email)
+            except ValidationError:
+                erro = "email_invalido"
+
+            # Atualiza os dados se não houver erros
             if not erro:
                 cliente = request.user.cliente
-                cliente.email = email
                 request.user.email = email
-                request.user.username = email
                 cliente.nome = nome
                 cliente.telefone = telefone
-                cliente.save()
                 request.user.save()
+                cliente.save()
                 alterado = True
-        else:
-            erro = "formulario_invalido"
+
     context = {"erro": erro, "alterado": alterado}
-    return render(request, 'usuario/minha_conta.html', context)
+    return render(request, "usuario/minha_conta.html", context)
 
 @login_required
 def meus_pedidos(request):
@@ -320,11 +346,22 @@ def criar_conta(request):
             email = dados.get("email")
             senha = dados.get("senha")
             confirmar_senha = dados.get("confirmar_senha")
+
+            # Valida o e-mail
             try:
                 validate_email(email)
             except ValidationError:
                 erro = "email_invalido"
-            if senha == confirmar_senha:
+
+            # Valida a senha
+            if not erro and not validar_senha(senha):
+                erro = "senha_invalida"
+
+            # Verifica se as senhas coincidem
+            if not erro and senha != confirmar_senha:
+                erro = "senhas_diferentes"
+
+            if not erro:
                 # Cria o usuário
                 usuario, criado = User.objects.get_or_create(username=email, email=email)
                 if not criado:
@@ -332,9 +369,11 @@ def criar_conta(request):
                 else:
                     usuario.set_password(senha)
                     usuario.save()
+
                     # Faz o login
                     usuario = authenticate(request, username=email, password=senha)
                     login(request, usuario)
+
                     # Cria o cliente associado ao usuário
                     if request.COOKIES.get("id_sessao"):
                         id_sessao = request.COOKIES.get("id_sessao")
@@ -346,12 +385,15 @@ def criar_conta(request):
                     cliente.nome = nome  # Associa o nome ao cliente
                     cliente.save()
                     return redirect("loja")
-            else:
-                erro = "senhas_diferentes"
         else:
             erro = "preenchimento"
     context = {"erro": erro}
     return render(request, "usuario/criar_conta.html", context)
+
+def validar_senha(senha):
+    regex = r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|:"<>?]).{8,}$'
+    return re.match(regex, senha)
+
 
 @login_required
 def fazer_logout(request):
